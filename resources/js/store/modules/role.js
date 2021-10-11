@@ -1,14 +1,5 @@
 const state = {
-    roles: [
-        {
-            name: "Admin",
-            description: "Access"
-        },
-        {
-            name: "User",
-            description: "Access"
-        }
-    ],
+    roles: [],
     dialog: false
 };
 
@@ -19,12 +10,31 @@ const getters = {
 
 const actions = {
     showDialog({ commit }) {
-        commit("setDialog");
+        commit("SET_DIALOG");
+    },
+    async fetch({ commit, dispatch }) {
+        await axios
+            .get("/api/role/list")
+            .then(res => {
+                commit("SET_ROLES", res.data.data);
+            })
+            .catch(err => console.log(err));
+    },
+
+    async add({ commit, dispatch }, payload) {
+        await axios
+            .post("/api/role/store", payload)
+            .then(res => {
+                commit("SET_DIALOG");
+                dispatch("fetch");
+            })
+            .catch(err => console.log(err));
     }
 };
 
 const mutations = {
-    setDialog: state => (state.dialog = !state.dialog)
+    SET_DIALOG: state => (state.dialog = !state.dialog),
+    SET_ROLES: (state, payload) => (state.roles = payload)
 };
 
 export default {

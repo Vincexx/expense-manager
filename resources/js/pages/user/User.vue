@@ -47,34 +47,23 @@ export default {
             headers: [
                 { text: "Name", value: "name" },
                 { text: "Email Address", value: "email" },
-                { text: "Role", value: "role" },
+                { text: "Role", value: "roles.name" },
                 { text: "Created_at", value: "created_at" }
-            ],
-            users: [
-                {
-                    name: "Charles Pitagan",
-                    email: "charles@gmail.com",
-                    role: "Admin",
-                    created_at: "12/21/2021"
-                },
-                {
-                    name: "Charles Pitagan",
-                    email: "charles@gmail.com",
-                    role: "Admin",
-                    created_at: "12/21/2021"
-                },
-                {
-                    name: "Charles Pitagan",
-                    email: "charles@gmail.com",
-                    role: "Admin",
-                    created_at: "12/21/2021"
-                }
             ]
         };
     },
+    computed: {
+        ...mapGetters({
+            users: "user/users"
+        })
+    },
+    mounted() {
+        this.fetch();
+    },
     methods: {
         ...mapActions({
-            showDialog: "user/showDialog"
+            showDialog: "user/showDialog",
+            fetch: "user/fetch"
         })
     }
 };

@@ -17,12 +17,12 @@ const getters = {
 
 const actions = {
     showDialog({ commit }) {
-        commit("setDialog");
+        commit("SET_DIALOG");
     }
 };
 
 const mutations = {
-    setDialog: state => (state.dialog = !state.dialog)
+    SET_DIALOG: state => (state.dialog = !state.dialog),
 };
 
 export default {

@@ -90,7 +90,14 @@
 
             <v-toolbar-title>Welcome to Expense Manager</v-toolbar-title>
             <v-spacer></v-spacer>
-            <v-btn outline color="success" dark>Sign Out</v-btn>
+            <v-btn
+                outline
+                color="success"
+                dark
+                @click="logout"
+                :loading="loading"
+                >Sign Out</v-btn
+            >
         </v-app-bar>
 
         <v-main>
@@ -100,9 +107,34 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from "vuex";
 export default {
     data: () => ({
-        drawer: null
-    })
+        drawer: null,
+        loading: false,
+        api_token: ""
+    }),
+    computed: {
+        ...mapGetters({
+            token: "auth/token"
+        })
+    },
+    methods: {
+        ...mapActions({
+            signOut: "auth/logout"
+        }),
+        async logout() {
+            this.loading = true;
+            await axios
+                .post("/api/logout")
+                .then(res => {
+                    this.signOut(this.$router);
+                })
+                .catch(err => console.log(err))
+                .finally(() => {
+                    this.loading = false;
+                });
+        }
+    }
 };
 </script>

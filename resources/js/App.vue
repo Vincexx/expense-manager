@@ -8,6 +8,7 @@
 <script>
 import Navbar from "./components/Navbar.vue";
 import Base from "./components/Base.vue";
+import { mapGetters } from "vuex";
 export default {
     components: {
         Navbar,
@@ -15,9 +16,13 @@ export default {
     },
     data() {
         return {
-            drawer: null,
-            authenticated: true
+            drawer: null
         };
+    },
+    computed: {
+        ...mapGetters({
+            authenticated: "auth/authenticated"
+        })
     }
 };
 </script>

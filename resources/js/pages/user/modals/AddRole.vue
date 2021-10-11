@@ -5,13 +5,16 @@
                 Add Role
             </v-card-title>
             <v-card-text>
-                <v-text-field label="Name"></v-text-field>
-                <v-text-field label="Description"></v-text-field>
+                <v-text-field label="Name" v-model="role.name"></v-text-field>
+                <v-text-field
+                    label="Description"
+                    v-model="role.description"
+                ></v-text-field>
             </v-card-text>
 
             <v-card-actions class="d-flex justify-space-between">
                 <v-btn color="info" @click="showDialog">Cancel</v-btn>
-                <v-btn color="success">Save</v-btn>
+                <v-btn color="success" @click="add(role)">Save</v-btn>
             </v-card-actions>
         </v-card>
     </v-dialog>
@@ -21,7 +24,9 @@
 import { mapGetters, mapActions } from "vuex";
 export default {
     data() {
-        return {};
+        return {
+            role: {}
+        };
     },
     computed: {
         ...mapGetters({
@@ -30,7 +35,8 @@ export default {
     },
     methods: {
         ...mapActions({
-            showDialog: "role/showDialog"
+            showDialog: "role/showDialog",
+            add: "role/add"
         })
     }
 };

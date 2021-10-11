@@ -6,18 +6,37 @@
                     Add User
                 </v-card-title>
                 <v-card-text>
-                    <v-text-field label="Name"></v-text-field>
-                    <v-text-field label="Email Address"></v-text-field>
+                    <v-text-field
+                        label="Name"
+                        v-model="user.name"
+                    ></v-text-field>
+                    <v-text-field
+                        label="Email Address"
+                        v-model="user.email"
+                    ></v-text-field>
                     <v-select
                         :items="roles"
                         item-text="name"
+                        item-value="id"
                         label="Select Role"
+                        v-model="user.role_id"
                     ></v-select>
+
+                    <v-text-field
+                        type="password"
+                        label="Password"
+                        v-model="user.password"
+                    ></v-text-field>
+                    <v-text-field
+                        type="password"
+                        label="Confirm Password"
+                        v-model="user.password_confirmation"
+                    ></v-text-field>
                 </v-card-text>
 
                 <v-card-actions class="d-flex justify-space-between">
                     <v-btn color="info" @click="showDialog">Cancel</v-btn>
-                    <v-btn color="success">Save</v-btn>
+                    <v-btn color="success" @click="add(user)">Save</v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>
@@ -28,7 +47,9 @@
 import { mapGetters, mapActions } from "vuex";
 export default {
     data() {
-        return {};
+        return {
+            user: {}
+        };
     },
     computed: {
         ...mapGetters({
@@ -38,7 +59,8 @@ export default {
     },
     methods: {
         ...mapActions({
-            showDialog: "user/showDialog"
+            showDialog: "user/showDialog",
+            add: "user/add"
         })
     }
 };

@@ -48,34 +48,22 @@ export default {
                 { text: "Display name", value: "name" },
                 { text: "Description", value: "description" },
                 { text: "Created_at", value: "created_at" }
-            ],
-            roles: [
-                {
-                    name: "Admin",
-                    description: "Can access all",
-                    created_at: "12/21/2021"
-                },
-                {
-                    name: "Admin",
-                    description: "Can access all",
-                    created_at: "12/21/2021"
-                },
-                {
-                    name: "Admin",
-                    description: "Can access all",
-                    created_at: "12/21/2021"
-                }
             ]
         };
     },
+    mounted() {
+        this.fetch();
+    },
     computed: {
         ...mapGetters({
-            dialog: "role/dialog"
+            dialog: "role/dialog",
+            roles: "role/roles"
         })
     },
     methods: {
         ...mapActions({
-            showDialog: "role/showDialog"
+            showDialog: "role/showDialog",
+            fetch: "role/fetch"
         })
     }
 };
