@@ -19,11 +19,10 @@ export default {
         };
     },
     mounted() {
-        // setInterval(() => {
-        //     this.isLoggedIn = localStorage.getItem("isLoggedIn");
-        //     console.log("test");
-        //     console.log(this.isLoggedIn);
-        // }, 1000);
+
+    },
+    methods: {
+
     }
 };
 </script>

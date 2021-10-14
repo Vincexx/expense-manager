@@ -1,5 +1,5 @@
 <template>
-    <v-app id="inspire" v-if="isLoggedIn">
+    <v-app id="inspire">
         <v-navigation-drawer v-model="drawer" app width="300px">
             <v-list>
                 <v-sheet class="pa-7 text-center">
@@ -112,15 +112,8 @@ export default {
     data: () => ({
         drawer: null,
         loading: false,
-        isLoggedIn: ""
     }),
-    mounted() {
-        // setInterval(() => {
-        //     this.isLoggedIn = localStorage.getItem("isLoggedIn");
-        //     console.log("test");
-        //     console.log(this.isLoggedIn);
-        // }, 1000);
-    },
+    mounted() {},
     methods: {
         logout() {
             this.loading = true;
@@ -128,7 +121,7 @@ export default {
                 .post("/logout")
                 .then(res => {
                     localStorage.removeItem("isLoggedIn");
-                    this.$router.push('/');
+                    this.$router.push("/");
                     console.log("Logged Out");
                 })
                 .catch(err => console.log(err))

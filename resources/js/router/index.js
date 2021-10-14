@@ -78,18 +78,16 @@ router.beforeEach((to, from, next) => {
     if (to.matched.some(record => record.meta.requiresAuth)) {
         if (!isLoggedIn) {
             next({
-                path: '/login',
-                query: { redirect: to.fullPath }
-              })
+                name: "login"
+            });
         } else {
             next();
         }
     } else if (to.matched.some(record => record.meta.requiresVisitor)) {
         if (isLoggedIn) {
             next({
-                path: '/dashboard',
-                query: { redirect: to.fullPath }
-              })
+                name: "dashboard"
+            });
         } else {
             next();
         }

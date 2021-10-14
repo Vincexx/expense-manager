@@ -1,7 +1,7 @@
 <template>
     <div>
-        <Navbar />
-        <Base />
+        <Navbar v-if="!isLoggedIn" />
+        <Base v-if="isLoggedIn" />
     </div>
 </template>
 
@@ -14,8 +14,16 @@ export default {
         Navbar,
         Base
     },
+    mounted() {
+        setInterval(() => {
+            this.isLoggedIn = localStorage.getItem("isLoggedIn");
+            console.log("test");
+        }, 1000);
+    },
     data() {
-        return {};
+        return {
+            isLoggedIn: ""
+        };
     }
 };
 </script>
