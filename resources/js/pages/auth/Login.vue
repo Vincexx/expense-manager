@@ -45,22 +45,23 @@ export default {
     },
     methods: {
         ...mapActions({
-            signIn: "auth/login",
-            apiToken: "auth/apiToken"
+            signIn: "auth/login"
         }),
         async login() {
             this.loading = true;
-            // await axios.get("/sanctum/csrf-cookie");
-            await axios
-                .post("/api/login", this.user)
-                .then(res => {
-                    localStorage.setItem("api_token", res.data.api_token);
-                    this.signIn(this.$router);
-                })
-                .catch(err => console.log(err))
-                .finally(() => {
-                    this.loading = false;
-                });
+            axios.get("/sanctum/csrf-cookie").then(response => {
+                console.log(response);
+                axios
+                    .post("/login", this.user)
+                    .then(res => {
+                        localStorage.setItem('isLoggedIn', 'true')
+                        this.$router.push({ name: 'dashboard' });
+                    })
+                    .catch(err => console.log(err))
+                    .finally(() => {
+                        this.loading = false;
+                    });
+            });
         }
     }
 };

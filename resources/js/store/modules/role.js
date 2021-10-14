@@ -16,6 +16,7 @@ const actions = {
         await axios
             .get("/api/role/list")
             .then(res => {
+                console.log(res.data);
                 commit("SET_ROLES", res.data.data);
             })
             .catch(err => console.log(err));

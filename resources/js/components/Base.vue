@@ -1,5 +1,5 @@
 <template>
-    <v-app id="inspire">
+    <v-app id="inspire" v-if="isLoggedIn">
         <v-navigation-drawer v-model="drawer" app width="300px">
             <v-list>
                 <v-sheet class="pa-7 text-center">
@@ -112,23 +112,24 @@ export default {
     data: () => ({
         drawer: null,
         loading: false,
-        api_token: ""
+        isLoggedIn: ""
     }),
-    computed: {
-        ...mapGetters({
-            token: "auth/token"
-        })
+    mounted() {
+        // setInterval(() => {
+        //     this.isLoggedIn = localStorage.getItem("isLoggedIn");
+        //     console.log("test");
+        //     console.log(this.isLoggedIn);
+        // }, 1000);
     },
     methods: {
-        ...mapActions({
-            signOut: "auth/logout"
-        }),
-        async logout() {
+        logout() {
             this.loading = true;
-            await axios
-                .post("/api/logout")
+            axios
+                .post("/logout")
                 .then(res => {
-                    this.signOut(this.$router);
+                    localStorage.removeItem("isLoggedIn");
+                    this.$router.push('/');
+                    console.log("Logged Out");
                 })
                 .catch(err => console.log(err))
                 .finally(() => {

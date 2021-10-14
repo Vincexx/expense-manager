@@ -20,8 +20,8 @@ Route::middleware('auth:sanctum')->get('/user', function () {
     return response()->json(Auth::user());
 });
 
-Route::post('login', 'api\LoginController@login');
-Route::middleware('auth:sanctum')->post('logout', 'api\LoginController@logout');
+// Route::post('login', 'api\LoginController@login');
+// Route::middleware('auth:sanctum')->post('logout', 'api\LoginController@logout');
 
 Route::prefix('user')->group(function() {
     Route::get('/list', 'api\UserController@list');
@@ -30,7 +30,7 @@ Route::prefix('user')->group(function() {
     Route::delete('/delete/{user}', 'api\UserController@destroy');
 });
 
-Route::prefix('role')->group(function() {
+Route::middleware('auth:sanctum')->prefix('role')->group(function() {
     Route::get('/list', 'api\RoleController@list');
     Route::post('/store', 'api\RoleController@store');
     Route::patch('/update/{role}', 'api\RoleController@update');

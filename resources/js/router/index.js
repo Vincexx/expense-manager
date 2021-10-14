@@ -16,18 +16,12 @@ const routes = [
     {
         path: "/",
         component: Home,
-        name: "home",
-        meta: {
-            requiresAuth: false
-        }
+        name: "home"
     },
     {
         path: "/login",
         component: Login,
-        name: "login",
-        meta: {
-            requiresAuth: false
-        }
+        name: "login"
     },
     {
         path: "/dashboard",
@@ -76,12 +70,26 @@ let router = new VueRouter({
     routes: routes
 });
 
+function isLoggedIn() {
+    return localStorage.getItem("isLoggedIn");
+}
+
 router.beforeEach((to, from, next) => {
     if (to.matched.some(record => record.meta.requiresAuth)) {
-        if (!store.state.auth.authenticated) {
+        if (!isLoggedIn) {
             next({
-                name: "login"
-            });
+                path: '/login',
+                query: { redirect: to.fullPath }
+              })
+        } else {
+            next();
+        }
+    } else if (to.matched.some(record => record.meta.requiresVisitor)) {
+        if (isLoggedIn) {
+            next({
+                path: '/dashboard',
+                query: { redirect: to.fullPath }
+              })
         } else {
             next();
         }

@@ -1,7 +1,7 @@
 <template>
     <div>
-        <Navbar v-if="!authenticated" />
-        <Base v-if="authenticated" />
+        <Navbar />
+        <Base />
     </div>
 </template>
 
@@ -15,14 +15,7 @@ export default {
         Base
     },
     data() {
-        return {
-            drawer: null
-        };
-    },
-    computed: {
-        ...mapGetters({
-            authenticated: "auth/authenticated"
-        })
+        return {};
     }
 };
 </script>
